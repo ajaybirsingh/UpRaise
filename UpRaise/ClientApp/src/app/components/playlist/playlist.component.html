@@ -1,0 +1,14 @@
+<ul>
+    <li *ngFor="let video of videos">
+
+        <button mat-fab
+                (click)="onVideoClick(video)"
+                color="primary"
+                [ngClass]="{ active: currentVideo.name === video.name}">
+            <mat-icon class="icon-size-10 text-current" [svgIcon]="'heroicons_solid:film'"></mat-icon>
+        </button>
+
+        <h5>{{ video.name }}</h5>
+
+    </li>
+</ul>

@@ -1,0 +1,54 @@
+<div class="grid grid-flow-col auto-cols-max justify-center mt-5 items-center ">
+    <div class="text-3xl rounded-full bg-blue-500 text-white w-12 text-center font-bold">6</div>
+    <div class="pl-4 text-2xl font-bold text-gray-500">Almost done!</div>
+</div>
+
+
+<ng-container [formGroup]="stepData">
+
+    <div class="relative flex items-start">
+        <div class="flex items-center h-5">
+            <input id="acceptTermsAndConditions" aria-describedby="comments-description" name="acceptTermsAndConditions" formControlName="acceptTermsAndConditions" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+        </div>
+        <div class="ml-3 text-sm">
+            <label for="comments" class="font-medium text-gray-700">I accept the UPRAISE agree with Terms &amp; Conditions</label>
+            <span id="comments-description" class="text-gray-500"><span class="sr-only">I accept the UPRAISE agree with Terms &amp; Conditions.</span>By checking this, you agree to our Terms &amp; Conditions.</span>
+
+            <div class="items-center text-red-500"  *ngIf="stepData.get('acceptTermsAndConditions').errors &&
+                                                           stepData.get('acceptTermsAndConditions').hasError('cbNotTrue')  &&
+                                                            stepData.get('acceptTermsAndConditions').invalid  &&
+                                                            stepData.get('acceptTermsAndConditions').dirty  &&
+                                                            stepData.get('acceptTermsAndConditions').touched">
+                <mat-icon class="text-red-500" [svgIcon]="'heroicons_solid:exclamation-circle'"></mat-icon>
+                You must accept the terms and conditions to continue!
+            </div>
+
+        </div>
+    </div>
+
+
+</ng-container>
+
+<div class="place-items-center mt-5 grid grid-flow-col gap-24">
+    <button type="button" (click)="prev()"
+            class="w-full items-center px-12 py-2 border border-transparent shadow-sm text-base text-2xl rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 grid grid-flow-col auto-cols-max justify-center">
+        <div>
+            <mat-icon class="text-white mr-2 mt-2" [svgIcon]="'heroicons_solid:arrow-sm-left'"></mat-icon>
+        </div>
+
+        <div>
+            Prev
+        </div>
+    </button>
+
+
+    <button type="button" [disabled]="!stepData.valid" (click)="next()"
+            class="w-full items-center px-12 py-2 border border-transparent shadow-sm text-base text-2xl rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 grid grid-flow-col auto-cols-max justify-center">
+        <div>
+            Create Draft
+        </div>
+        <div>
+            <mat-icon class="text-white ml-2 mt-2" [svgIcon]="'heroicons_solid:arrow-sm-right'"></mat-icon>
+        </div>
+    </button>
+</div>

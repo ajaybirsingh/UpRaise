@@ -1,0 +1,179 @@
+<div class="w-full">
+
+    <div class="text-center py-6 px-4 sm:px-6 lg:px-8">
+        <h1 class="text-4xl font-extrabold tracking-tight text-gray-900">Your Campaigns</h1>
+        <p class="mt-4 max-w-xl mx-auto text-base text-gray-500">Search for and edit/view any campaigns that you created.</p>
+    </div>
+
+    <div *ngIf="yourCampaignResponse">
+
+        <!-- Filters -->
+        <section aria-labelledby="filter-heading" class="relative z-10 border-t border-b border-gray-200 grid items-center">
+
+            <div class="col-start-1 row-start-1 py-4">
+                <div class="flex justify-end max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="relative inline-block">
+                        <mat-select [value]="filters.sortOrder$.value" (selectionChange)="filterBySortOrder($event)">
+                            <mat-option [value]="YourCampaignSortOrders.Newest">Newest</mat-option>
+                            <mat-option [value]="YourCampaignSortOrders.Oldest">Oldest</mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="flex flex-col">
+            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Status
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Type
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Name
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Start Date - End Date
+                                    </th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Updated On
+                                    </th>
+                                    <th scope="col" class="relative px-6 py-3">
+                                        <span class="sr-only">View / Edit</span>
+                                    </th>
+                                </tr>
+                            </thead>
+
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <ng-container *ngFor="let yourCampaign of yourCampaignResponse.yourCampaigns">
+
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full">
+
+                                                <div [ngSwitch]="yourCampaign.status">
+
+                                                    <div *ngSwitchCase="CampaignStatuses.Disabled">
+                                                        <div class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                                                            Disabled
+                                                        </div>
+                                                    </div>
+
+                                                    <div *ngSwitchCase="CampaignStatuses.Active">
+                                                        <div class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                            Active
+                                                        </div>
+                                                    </div>
+
+                                                    <div *ngSwitchCase="CampaignStatuses.PendingAcceptance">
+                                                        <div class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                                                            Pending Acceptance
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </span>
+                                        </td>
+
+                                        <td class="px-6 py-4 whitespace-nowrap">
+
+                                            <ng-container *ngIf="yourCampaign.type == CampaignTypes.Organization; else campaignTypePeople">
+                                                <div class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                                                    Organization
+                                                    <!--{{category.description}}-->
+                                                </div>
+                                            </ng-container>
+
+                                            <ng-template #campaignTypePeople>
+                                                <div class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-amber-100 text-amber-800">
+                                                    People
+                                                </div>
+                                            </ng-template>
+
+                                        </td>
+
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm text-gray-900">{{yourCampaign.name}}</div>
+                                            <!--<div class="text-sm text-gray-500">Optimization</div>-->
+                                        </td>
+
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+
+                                            <div class="flex flex-row">
+                                                <div class="text-sm text-gray-900">{{yourCampaign.startDate | date:'shortDate'}}</div>
+                                                <div class="px-2">-</div>
+                                                <div class="text-sm text-gray-900">{{yourCampaign.endDate | date:'shortDate'}}</div>
+
+                                                <!--
+                                                    <div class="text-sm text-gray-900">{{yourCampaign.description}}</div>
+                                                -->
+                                            </div>
+                                        </td>
+
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                            <div class="text-sm text-gray-900">{{yourCampaign.updatedAt | date:'shortDate'}}</div>
+                                        </td>
+
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+
+                                            <div class="inline-flex">
+                                                <button (click)="view(yourCampaign.type, yourCampaign.campaignId)" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-l">
+                                                    View
+                                                </button>
+
+                                                <button (click)="edit(yourCampaign.transactionId)" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-r">
+                                                    Edit
+                                                </button>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+
+                                </ng-container>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+
+            <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                <div>
+                    <p class="text-sm text-gray-700">
+                        Showing
+                        <span class="font-medium">{{(yourCampaignResponse.pageSize * (yourCampaignResponse.pageNumber-1)) + 1 }}</span>
+                        to
+                        <span class="font-medium">{{yourCampaignResponse.pageSize * yourCampaignResponse.pageNumber }}</span>
+                        of
+                        <span class="font-medium">{{yourCampaignResponse.totalItems}}</span>
+                        results
+                    </p>
+                </div>
+
+
+                <div class="flex-1 flex justify-between sm:justify-end">
+                    <button *ngIf="this.filters.pageNumber$.value > 1" (click)="previousPage()" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                        Previous
+                    </button>
+
+                    <button *ngIf="this.filters.pageNumber$.value < this.yourCampaignResponse.totalPages" (click)="nextPage()" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                        Next
+                    </button>
+                </div>
+
+
+
+            </div>
+        </div>
+
+    </div>
+</div>

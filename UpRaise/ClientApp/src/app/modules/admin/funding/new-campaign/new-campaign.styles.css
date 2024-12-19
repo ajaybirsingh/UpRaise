@@ -1,0 +1,35 @@
+.k-stepper {
+    align-self: center;
+}
+
+.k-step {
+    pointer-events: none;
+}
+
+.k-button.prev {
+    margin-right: 16px;
+}
+
+.k-form-separator {
+    margin-top: 40px;
+}
+
+.k-buttons-end {
+    justify-content: space-between;
+    align-content: center;
+}
+
+.page {
+    align-self: center;
+}
+
+/*
+.k-upload .k-dropzone {
+    display: block;
+}
+
+.k-upload .k-upload-status {
+    display: flex;
+}
+
+    */

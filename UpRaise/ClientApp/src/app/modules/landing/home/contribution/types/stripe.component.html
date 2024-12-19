@@ -1,0 +1,55 @@
+
+<div *ngIf="loading">Loading....</div>
+
+<form [formGroup]="formGroup">
+
+    <div class="py-6 px-4 space-y-6 sm:p-6">
+
+        <div class="form-row">
+            <label for="comment" class="block text-sm font-medium text-gray-700">Add your comment</label>
+            <div class="mt-1">
+                <textarea rows="4" formControlName="comment" name="comment" id="comment" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"></textarea>
+            </div>
+        </div>
+
+
+        <div class="form-row">
+            <label for="amount" class="block font-medium text-gray-700">Amount</label>
+            <div class="mt-1 relative rounded-md shadow-sm">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <span class="text-gray-500 sm:text-sm">
+                        $
+                    </span>
+                </div>
+                <input type="text" formControlName="amount" name="amount" id="amount" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0.00">
+                <div class="absolute inset-y-0 right-0 flex items-center">
+                    <label for="currency" class="sr-only">Currency</label>
+                    <select id="currency" name="currency" class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
+                        <option>USD</option>
+                        <option>CAD</option>
+                        <option>EUR</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div>
+                <p class="mt-2 text-sm text-red-600" id="amount-error" *ngIf="formGroup.get('amount').touched && formGroup.get('amount').hasError('min')">Amount must be greater than $0.00.</p>
+                <p class="mt-2 text-sm text-red-600" id="amount-error" *ngIf="formGroup.get('amount').touched && formGroup.get('amount').hasError('max')">Maximum amount can be $100,000.00.</p>
+            </div>
+
+        </div>
+
+        <div class="form-row">
+            <label for="card-element" class="block font-medium text-gray-700">Credit or debit card</label>
+
+            <div id="card-element" #cardInfo></div>
+
+            <div id="card-errors" role="alert" *ngIf="error">{{error}}</div>
+        </div>
+
+        <button (click)="onSubmitStripe()" class="w-full mt-6 bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Contribute</button>
+
+    </div>
+
+</form>

@@ -1,0 +1,48 @@
+<div class="h-4/5 flex-col">
+    <!--
+    <mat-toolbar class="mat-accent m-0">
+      <mat-toolbar-row fxFlex fxLayout="row" fxLayoutAlign="space-between center">
+        <span class="title dialog-title">New Message</span>
+        <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+          <mat-icon>close</mat-icon>
+        </button>
+        </mat-toolbar-row>
+      </mat-toolbar>
+            -->
+
+    <div mat-dialog-content class="max-w-md" fusePerfectScrollbar fxLayout="column" fxLayoutAlign="center center">
+        <image-cropper [imageChangedEvent]="imageChangedEvent"
+                       [maintainAspectRatio]="true"
+                       [aspectRatio]="1 / 1"
+                       [resizeToWidth]="128"
+                       format="png"
+                       (imageCropped)="imageCropped($event)"
+                       (imageLoaded)="imageLoaded()"
+                       (cropperReady)="cropperReady()"
+                       (loadImageFailed)="loadImageFailed()"
+                       [style.display]="showCropper ? null : 'none'">
+        </image-cropper>
+
+        <div>
+            <img [ngClass]="{'circular-image': roundCropper}" [src]="croppedImage" />
+        </div>
+
+    </div>
+
+    <div class="flex justify-center space-x-7">
+
+        <div>
+            <button (click)="save()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" aria-label="Save">
+                Save
+            </button>
+        </div>
+
+        <div>
+            <button (click)="matDialogRef.close(['cancel'])" class="w-24 k-button k-primary k-bg-error" aria-label="Cancel">
+                Cancel
+            </button>
+        </div>
+
+    </div>
+
+</div>

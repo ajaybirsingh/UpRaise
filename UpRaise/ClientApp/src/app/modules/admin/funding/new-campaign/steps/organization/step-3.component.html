@@ -1,0 +1,110 @@
+<div class="grid grid-flow-col auto-cols-max justify-center mt-5 items-center ">
+    <div class="text-3xl rounded-full bg-blue-500 text-white w-12 text-center font-bold">3</div>
+    <div class="pl-4 text-2xl font-bold">Who is going to benefit?</div>
+</div>
+
+<div class="mt-4 mb-8 text-2xl text-center">
+    Tell us about the organization you want to receive your funds.
+</div>
+
+
+<fuse-card class="flex flex-col w-full p-8 pt-6 pb-4 filter-list bg-gray-200">
+    <div class="text-2xl font-semibold leading-tight">Important Information About Naming a Beneficiary</div>
+
+    <div class="flex-auto max-w-3xl prose prose-sm">
+        Make sure to get the name of your beneficiary organization right. That way we ensure the right organization or people receive your campaign funds.
+    </div>
+</fuse-card>
+
+<ng-container [formGroup]="stepData" >
+    <div class="mt-5">
+
+        <div>
+            <div class="flex justify-between">
+                <label for="beneficiaryOrganization" class="block text-gray-900">Beneficiary organization</label>
+                <span id="beneficiaryOrganization-max" class="text-sm text-gray-500">Max. 2048 characters</span>
+            </div>
+
+            <div class="mt-1 relative rounded-md shadow-sm">
+                <input type="text" formControlName="beneficiaryOrganization" name="beneficiaryOrganization" id="beneficiaryOrganization" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+            </div>
+        </div>
+
+
+        <div class="mt-5">
+            <div class="flex justify-between">
+                <label for="location" class="block text-gray-900">Location</label>
+                <span id="location-max" class="text-sm text-gray-500">Max. 2048 characters</span>
+            </div>
+
+            <div class="mt-1 relative rounded-md shadow-sm">
+                <input type="text" formControlName="location" name="location" id="location" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+            </div>
+        </div>
+
+
+        <div class="mt-5">
+            <div class="flex justify-between">
+                <label for="contactName" class="block text-gray-900">Contact name (if you know it)</label>
+                <span id="contactName-max" class="text-sm text-gray-500">Max. 2048 characters</span>
+            </div>
+
+            <div class="mt-1 relative rounded-md shadow-sm">
+                <input type="text" formControlName="contactName" name="contactName" id="contactName" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+            </div>
+        </div>
+
+
+        <div class="mt-5">
+            <div class="flex justify-between">
+                <label for="contactEmail" class="block text-gray-900">Contact email (if you know it)</label>
+                <span id="contactEmail-max" class="text-sm text-gray-500">Max. 2048 characters</span>
+            </div>
+
+            <div class="mt-1 relative rounded-md shadow-sm">
+                <input type="text" formControlName="contactEmail" name="contactEmail" id="contactEmail" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+            </div>
+        </div>
+
+
+        <div class="mt-5">
+            <div class="flex justify-between">
+                <label for="contactPhone" class="block text-gray-900">Contact phone (if you know it)</label>
+                <span id="contactPhone-max" class="text-sm text-gray-500">Max. 2048 characters</span>
+            </div>
+
+            <div class="mt-1 relative rounded-md shadow-sm">
+                <input type="text" formControlName="contactPhone" name="contactPhone" id="contactPhone" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+            </div>
+        </div>
+
+    </div>
+</ng-container>
+
+
+<div class="place-items-center mt-10 grid grid-flow-col gap-24">
+    <button type="button" (click)="prev()"
+            class="w-full items-center px-12 py-2 border border-transparent shadow-sm text-base text-2xl rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 grid grid-flow-col auto-cols-max justify-center">
+        <div>
+            <mat-icon class="text-white mr-2 mt-2" [svgIcon]="'heroicons_solid:arrow-sm-left'"></mat-icon>
+        </div>
+
+        <div>
+            Prev
+        </div>
+    </button>
+
+
+    <!-- [disabled]="!stepData.valid" -->
+    <button type="button" (click)="next()"
+            [disabled]="!stepData.valid"
+            class="w-full items-center px-12 py-2 border border-transparent shadow-sm text-base text-2xl rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 grid grid-flow-col auto-cols-max justify-center">
+        <div>
+            Continue
+        </div>
+        <div>
+            <mat-icon class="text-white ml-2 mt-2" [svgIcon]="'heroicons_solid:arrow-sm-right'"></mat-icon>
+        </div>
+    </button>
+
+</div>

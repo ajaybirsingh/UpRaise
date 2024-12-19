@@ -1,0 +1,114 @@
+
+<div class="grid grid-flow-col auto-cols-max justify-center mt-5 items-center">
+    <div class="pl-4 text-3xl font-bold">What type of campaign do you want to create?</div>
+</div>
+
+
+
+
+<ng-container [formGroup]="stepData">
+
+    <div class="grid grid-cols-2 gap-24 place-items-center py-6">
+
+        <div>
+            <label class="relative border-gray-300 border rounded-lg shadow-lg flex cursor-pointer focus:outline-none">
+                <input type="radio" name="campaignTypeId"
+                       [value]="CampaignTypes.Organization" formControlName="campaignTypeId"
+                       [ngClass]="{'border-transparent ring-2 ring-indigo-500':stepData.get('campaignTypeId').value == CampaignTypes.Organization,
+                                                       'border-gray-300':stepData.get('campaignTypeId').value != CampaignTypes.Organization}"
+                       class="sr-only">
+
+                <div class="grid grid-flow-col auto-cols-max p-4 ">
+
+                    <div>
+                        <mat-icon class="icon-size-20 text-green-400">business</mat-icon>
+                    </div>
+
+                    <div class="ml-2 max-w-60">
+                        <p class="text-2xl">Organization</p>
+
+                        <p class="mt-1 text-lg text-gray-500 break-words">
+                            Fund an organization with donations  only if they meet conditions that you set.
+                        </p>
+
+                    </div>
+
+                    <div>
+                        <!-- Not Checked: "hidden" Heroicon name: solid/check-circle -->
+                        <svg class="h-5 w-5 text-indigo-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                             [ngClass]="{'hidden':stepData.get('campaignTypeId').value != CampaignTypes.Organization}">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+
+                    </div>
+                </div>
+
+                <!-- Active: "border", Not Active: "border-2" Checked: "border-indigo-500", Not Checked: "border-transparent" -->
+                <div class="absolute -inset-px rounded-lg border-2 pointer-events-none"
+                     [ngClass]="{'border-4 border-indigo-500':stepData.get('campaignTypeId').value == CampaignTypes.Organization,
+                                 'border-transparent':stepData.get('campaignTypeId').value != CampaignTypes.Organization}">
+                </div>
+            </label>
+
+        </div>
+
+        <div>
+            <label class="relative border-gray-300 border rounded-lg shadow-lg flex cursor-pointer focus:outline-none">
+                <input type="radio" name="campaignTypeId"
+                       [value]="CampaignTypes.People" formControlName="campaignTypeId"
+                       [ngClass]="{'border-transparent ring-2 ring-indigo-500':stepData.get('campaignTypeId').value == CampaignTypes.People,
+                                                       'border-gray-300':stepData.get('campaignTypeId').value != CampaignTypes.People}"
+                       class="sr-only">
+
+                <div class="grid grid-flow-col auto-cols-max p-4 ">
+
+                    <div>
+                        <mat-icon class="icon-size-20 text-green-400">person</mat-icon>
+                    </div>
+
+                    <div class="ml-2 max-w-60">
+                        <p class="text-2xl">People</p>
+
+                        <p class="mt-1 text-lg text-gray-500 break-words">
+                            Get someone you know to do something for money for themselves or a charity of their choice.
+                        </p>
+
+                    </div>
+
+                    <div>
+                        <!-- Not Checked: "hidden" Heroicon name: solid/check-circle -->
+                        <svg class="h-5 w-5 text-indigo-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                             [ngClass]="{'hidden':stepData.get('campaignTypeId').value != CampaignTypes.People}">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+
+                    </div>
+                </div>
+
+                <!-- Active: "border", Not Active: "border-2" Checked: "border-indigo-500", Not Checked: "border-transparent" -->
+                <div class="absolute -inset-px rounded-lg border-2 pointer-events-none"
+                     [ngClass]="{'border-4 border-indigo-500':stepData.get('campaignTypeId').value == CampaignTypes.People,
+                                                     'border-transparent':stepData.get('campaignTypeId').value != CampaignTypes.People}">
+                </div>
+            </label>
+
+
+        </div>
+
+    </div>
+
+</ng-container>
+
+
+<div class="place-items-center mt-5 ">
+    <button type="button" [disabled]="!stepData.valid" (click)="continue()"
+            class="w-full items-center px-12 py-2 border border-transparent shadow-sm text-base text-2xl rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 grid grid-flow-col auto-cols-max justify-center">
+        <div>
+            Continue
+        </div>
+        <div>
+            <mat-icon class="text-white ml-2 mt-2" [svgIcon]="'heroicons_solid:arrow-sm-right'"></mat-icon>
+        </div>
+    </button>
+</div>
+

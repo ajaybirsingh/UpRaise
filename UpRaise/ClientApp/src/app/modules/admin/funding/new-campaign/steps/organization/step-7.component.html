@@ -1,0 +1,72 @@
+<div class="grid grid-flow-col auto-cols-max justify-center mt-5 items-center ">
+    <div class="text-3xl rounded-full bg-blue-500 text-white w-12 text-center font-bold">7</div>
+    <div class="pl-4 text-2xl font-bold text-gray-500">Almost done!?</div>
+</div>
+
+<div class="mt-4 mb-8 text-2xl text-center max-w-2xl prose prose-sm">
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nisl est sociis ultrices cursus. Venenatis amet, purus risus egestas turpis. Metus in luctus justo elit ultricies neque vitae a, risus. Varius sit arcu id dolor habitant tellus. Dolor vel pellentesque nunc, ut. Eleifend morbi imperdiet ultrices quis. Etiam dictum egestas risus enim arcu. Elementum tincidunt eget sit ut ut quis magnis in tortor.
+    </p>
+    <p>
+        At velit viverra interdum sed nam massa est. Tempor, rhoncus facilisis at integer nam pellentesque. Est molestie ornare neque duis. A tristique urna amet phasellus sagittis nibh arcu. Donec amet sem scelerisque arcu volutpat. At commodo, suspendisse pretium eleifend cum velit cras neque, sollicitudin.
+    </p>
+    <p>
+        Integer nulla diam est, gravida purus. Velit tellus quam convallis sit. Curabitur accumsan, tempus quis tincidunt ut odio. Venenatis in nibh etiam laoreet scelerisque ultricies viverra ut. Curabitur eget sit purus in augue pellentesque. Urna blandit nulla eget massa lectus bibendum at. At lorem iaculis tortor fringilla at quis orci enim fermentum. Id nunc ultricies egestas viverra velit nunc eget dignissim hac.
+    </p>
+</div>
+
+
+
+<ng-container [formGroup]="stepData">
+
+    <div class="relative flex items-start">
+        <div class="flex items-center h-5">
+            <input id="acceptTermsAndConditions" aria-describedby="acceptTermsAndConditions-description" name="acceptTermsAndConditions" formControlName="acceptTermsAndConditions" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+        </div>
+        <div class="ml-3 text-lg">
+            <label for="acceptTermsAndConditions" class="font-medium text-gray-700">I accept the UPRAISE agree with Terms &amp; Conditions</label>
+            <p id="acceptTermsAndConditions-description" class="text-gray-500">By checking this, you agree to our Terms &amp; Conditions.</p>
+
+
+            <div class="flex text-red-500" *ngIf="stepData.get('acceptTermsAndConditions').errors &&
+                                                           stepData.get('acceptTermsAndConditions').hasError('cbNotTrue')  &&
+                                                            stepData.get('acceptTermsAndConditions').invalid  &&
+                                                            stepData.get('acceptTermsAndConditions').dirty  &&
+                                                            stepData.get('acceptTermsAndConditions').touched">
+                <mat-icon class="text-red-500" [svgIcon]="'heroicons_solid:exclamation-circle'"></mat-icon>
+                <div class="" >You must accept the terms and conditions to continue!</div>
+            </div>
+
+        </div>
+    </div>
+
+</ng-container>
+
+
+
+<div class="place-items-center mt-5 grid grid-flow-col gap-24">
+    <button type="button" (click)="prev()"
+            class="w-full items-center px-12 py-2 border border-transparent shadow-sm text-base text-2xl rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 grid grid-flow-col auto-cols-max justify-center">
+        <div>
+            <mat-icon class="text-white mr-2 mt-2" [svgIcon]="'heroicons_solid:arrow-sm-left'"></mat-icon>
+        </div>
+
+        <div>
+            Prev
+        </div>
+    </button>
+
+
+    <!-- [disabled]="!stepData.valid" -->
+    <button type="button" (click)="next()"
+            [disabled]="!stepData.valid"
+            class="w-full items-center px-12 py-2 border border-transparent shadow-sm text-base text-2xl rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 grid grid-flow-col auto-cols-max justify-center">
+        <div>
+            Continue
+        </div>
+        <div>
+            <mat-icon class="text-white ml-2 mt-2" [svgIcon]="'heroicons_solid:arrow-sm-right'"></mat-icon>
+        </div>
+    </button>
+
+</div>

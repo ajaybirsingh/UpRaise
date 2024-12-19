@@ -1,0 +1,23 @@
+<div class="max-w-7xl mx-auto py-6 h-full" #mapDiv>
+
+    <div *ngIf="apiLoaded">
+        <google-map height="1024px" width="100%"  [zoom]="zoom"
+  [center]="center"
+  [options]="options">
+            <map-marker #markerElem="mapMarker"
+                        *ngFor="let marker of markers"
+                        [position]="marker.position"
+                        [label]="marker.label"
+                        [title]="marker.title"
+                        [options]="marker.options"
+                        (mapClick)="openInfo(markerElem, marker.info)">
+            </map-marker>
+
+            <map-info-window [innerHtml]="infoContent | noSanitize"></map-info-window>
+
+        </google-map>
+
+
+    </div>
+
+</div>

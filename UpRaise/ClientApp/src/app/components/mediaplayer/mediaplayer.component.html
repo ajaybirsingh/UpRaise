@@ -1,0 +1,42 @@
+<div class="player">
+    <video class="player__video viewer"
+           (timeupdate)="handleProgress()"
+           (ended)="updateButton()"
+           [src]="currentVideo?.src"
+           #videoplayer>
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- autoplay="autoplay" -->
+
+    <div class="player__controls">
+
+        <!--
+            <mat-slider tickPlacement="none"
+                          [showButtons]="showButtons"
+                          [min]="min"
+                          [max]="max"
+                          [smallStep]="smallStep"
+                          [(ngModel)]="value"
+                          (valueChange)="onChange($event)"></mat-slider>
+    -->
+
+
+        <!--
+    <div class="progress" (click)="seek($event)"></div>
+    <div class="progress__filled" [ngStyle]="progressBarStyle"></div>
+        -->
+
+        <div class="controls__secondary">
+            <div>
+                <i class="player__button toggle k-icon" [ngClass]="iconClass" title="Toggle Play" (click)="togglePlay()"></i>
+            </div>
+
+            <div>
+                <input type="range" name="volume" class="player__slider" min="0" max="1" step="0.05" value="1" (change)="handleVolumeChange($event)" />
+            </div>
+        </div>
+    </div>
+
+</div>
+

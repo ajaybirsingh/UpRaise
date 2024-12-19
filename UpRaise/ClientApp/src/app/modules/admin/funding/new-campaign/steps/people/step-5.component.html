@@ -1,0 +1,121 @@
+<div class="grid grid-flow-col auto-cols-max justify-center mt-5 items-center ">
+    <div class="text-3xl rounded-full bg-blue-500 text-white w-12 text-center font-bold">5</div>
+    <div class="pl-4 text-2xl font-bold">Get creative!</div>
+</div>
+
+<div class="mt-4 mb-8 text-2xl text-center">
+    Upload pics, video and anything else you want for your cause.
+</div>
+
+<!-- Header File -->
+<div>
+    <label class="mb-4 inline-flex  items-center px-4 py-2 bg-indigo-200 text-indigo-700 rounded-lg shadow-lg hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+        </svg>
+        <span class="ml-2 text-base leading-normal">Add Header Picture</span>
+        <input type='file' class="hidden" accept="image/*" (change)="addheaderPicture($event)" />
+    </label>
+
+    <div *ngIf="stepData.controls['headerPhoto'].value">
+        <div class="group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+            <img *ngIf="!stepData.controls['headerPhoto'].value.id" [src]="stepData.controls['headerPhoto'].value.src" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
+            <img *ngIf="stepData.controls['headerPhoto'].value.id" [src]="stepData.controls['headerPhoto'].value.url" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
+        </div>
+
+        <button (click)="removeHeaderImage(idx, photo)" type="button" class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded bg-red-300 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+            <mat-icon class="text-white" [svgIcon]="'heroicons_solid:trash'"></mat-icon>
+        </button>
+
+        <div *ngIf="!stepData.controls['headerPhoto'].value.id">
+            <p class="mt-2 block text-sm font-medium text-gray-900 truncate pointer-events-none">{{stepData.controls['headerPhoto'].value.fileInfo.name}}</p>
+            <p class="block text-sm font-medium text-gray-500 pointer-events-none">{{stepData.controls['headerPhoto'].value.fileInfo.size | filesize }}</p>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Pictures -->
+<!--
+<div>
+
+    <label class="mb-4 inline-flex  items-center px-4 py-2 bg-indigo-200 text-indigo-700 rounded-lg shadow-lg hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+        </svg>
+        <span class="ml-2 text-base leading-normal">Add Pictures</span>
+        <input type='file' class="hidden" accept="image/*" multiple (change)="selectFiles($event)" />
+    </label>
+
+    <div>
+
+        <ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4 xl:gap-x-8">
+            <li *ngFor='let photo of photos.value; index as idx' class="relative">
+                <div class="group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500 overflow-hidden">
+                    <img *ngIf="!photo.id" [src]="photo.src" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
+                    <img *ngIf="photo.id" [src]="photo.url" alt="" class="object-cover pointer-events-none group-hover:opacity-75">
+                </div>
+
+                <button (click)="removeImage(idx, photo)" type="button" class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded bg-red-300 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                    <mat-icon class="text-white" [svgIcon]="'heroicons_solid:trash'"></mat-icon>
+                </button>
+
+                <div *ngIf="!photo.id">
+                    <p class="mt-2 block text-sm font-medium text-gray-900 truncate pointer-events-none">{{photo.fileInfo.name}}</p>
+                    <p class="block text-sm font-medium text-gray-500 pointer-events-none">{{photo.fileInfo.size | filesize }}</p>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+</div>
+-->
+
+<div class="place-items-center mt-5 grid grid-flow-col gap-24">
+    <button type="button" (click)="prev()"
+            class="w-full items-center px-12 py-2 border border-transparent shadow-sm text-base text-2xl rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 grid grid-flow-col auto-cols-max justify-center">
+        <div>
+            <mat-icon class="text-white mr-2 mt-2" [svgIcon]="'heroicons_solid:arrow-sm-left'"></mat-icon>
+        </div>
+        <div>
+            Prev
+        </div>
+    </button>
+
+
+    <button type="button" [disabled]="!stepData.valid" (click)="next()"
+            class="w-full items-center px-12 py-2 border border-transparent shadow-sm text-base text-2xl rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 grid grid-flow-col auto-cols-max justify-center">
+        <div>
+            Continue
+        </div>
+        <div>
+            <mat-icon class="text-white ml-2 mt-2" [svgIcon]="'heroicons_solid:arrow-sm-right'"></mat-icon>
+        </div>
+    </button>
+</div>
+
+
+<div class="place-items-center mt-5 grid grid-flow-col gap-24">
+
+    <button type="button" (click)="preview()"
+            class="w-full items-center px-12 py-2 border border-transparent shadow-sm text-base text-2xl rounded-md text-white bg-indigo-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 grid grid-flow-col auto-cols-max justify-center">
+        <div>
+            Preview
+        </div>
+    </button>
+</div>
+
+
+
+
+<fuse-card class="flex flex-col w-full p-8 pt-6 pb-4 filter-list bg-white mt-8">
+    <div class="text-2xl font-semibold leading-tight">Image and Video Guidelines</div>
+
+    <div class="flex-auto max-w-3xl prose prose-sm">
+        <ul>
+            <li>Formats include jpg, png, etc.</li>
+        </ul>
+    </div>
+
+</fuse-card>

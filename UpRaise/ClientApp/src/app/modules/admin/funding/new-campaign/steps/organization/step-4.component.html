@@ -1,0 +1,125 @@
+<div class="grid grid-flow-col auto-cols-max justify-center mt-5 items-center ">
+    <div class="text-3xl rounded-full bg-blue-500 text-white w-12 text-center font-bold">4</div>
+    <div class="pl-4 text-2xl font-bold text-gray-500"> How will the campaign run?</div>
+</div>
+
+<div class="mt-4 mb-8 text-2xl text-center">
+    Decide how much you want to raise and for how long.
+</div>
+
+
+<ng-container [formGroup]="stepData">
+    <div class="grid grid-cols-2 gap-y-6 gap-x-4 pt-6">
+
+        <div class="col-span-2">
+
+            <div class="text-gray-900">
+                <div class="text-gray-900">
+                    Fundraising Goals
+                </div>
+
+                <div class="pl-2" *ngIf="stepData.get('fundraisingGoals').errors && stepData.get('fundraisingGoals').hasError('required')">
+                    <mat-icon class="text-red-500" [svgIcon]="'heroicons_solid:exclamation-circle'"></mat-icon>
+                </div>
+            </div>
+
+
+            <div class="mt-1 relative rounded-md shadow-sm">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <span class="text-gray-500 sm:text-sm">
+                        $
+                    </span>
+                </div>
+                <input type="text" name="fundraisingGoals" id="fundraisingGoals" formControlName="fundraisingGoals" class="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md" placeholder="0.00">
+                <div class="absolute inset-y-0 right-0 flex items-center">
+                    <label for="currencyId" class="sr-only">Currency</label>
+                    <select id="currencyId" name="currencyId" formControlName="currencyId" class="focus:ring-indigo-500 focus:border-indigo-500 h-full py-0 pl-2 pr-7 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md">
+                        <option value=1>USD</option>
+                        <option value=2>CAD</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-span-1">
+            <label for="startDate" class="block text-gray-900">Start Date</label>
+            <mat-form-field appearance="fill" class="w-full">
+                <input matInput [matDatepicker]="startDatePicker" [formControlName]="'startDate'">
+                <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #startDatePicker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <!-- showHints="initial" -->
+        <div class="col-span-1">
+            <label for="startDate" class="block text-gray-900">End Date (optional)</label>
+
+            <mat-form-field appearance="fill" class="w-full">
+                <input matInput [matDatepicker]="endDatePicker" [formControlName]="'endDate'">
+                <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #endDatePicker></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <div class="col-span-2">
+            <label for="campaignConditions" class="block text-gray-900">Campaign Conditions</label>
+
+            <input type="text" #addTerm placeholder="Add term" (keydown)="onKeyDown($event)" name="campaignConditions" id="campaignConditions" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+
+            <div class="mt-2">
+                <mat-chip-list>
+                    <mat-chip *ngFor="let term of campaignConditions.value" [removable]="term.removable" (removed)="removeOption(term)">
+                        {{term.label}}
+                        <mat-icon matChipRemove *ngIf="term.removable">cancel</mat-icon>
+                    </mat-chip>
+                </mat-chip-list>
+            </div>
+
+        </div>
+
+    </div>
+</ng-container>
+
+<div class="place-items-center mt-10 grid grid-flow-col gap-24">
+    <button type="button" (click)="prev()"
+            class="w-full items-center px-12 py-2 border border-transparent shadow-sm text-base text-2xl rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 grid grid-flow-col auto-cols-max justify-center">
+        <div>
+            <mat-icon class="text-white mr-2 mt-2" [svgIcon]="'heroicons_solid:arrow-sm-left'"></mat-icon>
+        </div>
+
+        <div>
+            Prev
+        </div>
+    </button>
+
+
+    <!-- [disabled]="!stepData.valid" -->
+    <button type="button" (click)="next()"
+            [disabled]="!stepData.valid"
+            class="w-full items-center px-12 py-2 border border-transparent shadow-sm text-base text-2xl rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 grid grid-flow-col auto-cols-max justify-center">
+        <div>
+            Continue
+        </div>
+        <div>
+            <mat-icon class="text-white ml-2 mt-2" [svgIcon]="'heroicons_solid:arrow-sm-right'"></mat-icon>
+        </div>
+    </button>
+
+</div>
+
+
+<fuse-card class="flex flex-col w-full mt-10 p-8 pt-6 pb-4 filter-list bg-gray-200">
+    <div class="text-2xl font-semibold leading-tight">Tips</div>
+
+    <div class="flex-auto max-w-3xl prose prose-sm">
+        <ul>
+            <li>
+                The longer your campaign, the more money you’re likely to raise.
+            </li>
+            <li>
+                Even if you don’t meet your $ goal, the funds can still be released.
+            </li>
+        </ul>
+    </div>
+
+</fuse-card>

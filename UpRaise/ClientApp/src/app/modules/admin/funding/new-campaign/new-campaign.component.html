@@ -1,0 +1,52 @@
+<div class="flex flex-col flex-auto min-w-0 items-center ">
+
+    <div class="shadow w-full bg-grey-light">
+        <div class="bg-blue-400 text-xs leading-none py-1 text-center text-white" [ngStyle]="{'width': stepProgess()+'%'}" style="width: 45%"></div>
+    </div>
+
+    <!-- Title -->
+    <!--
+    <div class="font-raleway text-4xl font-bold">
+        Create a campaign
+    </div>
+
+    <div class="font-raleway text-3xl h-10">
+        {{campaignTypeSubTitle()}}
+    </div>
+        -->
+
+    <!-- Main -->
+
+    <step-1 *ngIf="currentStep === 0" [stepData]="currentGroup" (WizardEvent)="getWizardEvent($event)"></step-1>
+
+    <div *ngIf="currentStep > 0 && getCampaignType() === this.campaignTypes.Organization">
+
+        <form [formGroup]="formOrganization" (keydown.enter)="$event.preventDefault()">
+
+            <org-step-2 *ngIf="currentStep === 1" [isEditing]="IsEditing" [stepData]="currentGroup" (WizardEvent)="getWizardEvent($event)"> </org-step-2>
+            <org-step-3 *ngIf="currentStep === 2" [stepData]="currentGroup" (WizardEvent)="getWizardEvent($event)"> </org-step-3>
+            <org-step-4 *ngIf="currentStep === 3" [stepData]="currentGroup" (WizardEvent)="getWizardEvent($event)"> </org-step-4>
+            <org-step-5 *ngIf="currentStep === 4" [stepData]="currentGroup" (WizardEvent)="getWizardEvent($event)"> </org-step-5>
+            <org-step-6 *ngIf="currentStep === 5" [stepData]="currentGroup" (WizardEvent)="getWizardEvent($event)" [formData]="formOrganization"> </org-step-6>
+            <org-step-7 *ngIf="currentStep === 6" [stepData]="currentGroup" (WizardEvent)="getWizardEvent($event)"> </org-step-7>
+            <org-step-8 *ngIf="currentStep === 7" [stepData]="currentGroup" (WizardEvent)="getWizardEvent($event)"> </org-step-8>
+
+        </form>
+    </div>
+
+
+
+    <div *ngIf="currentStep > 0 && getCampaignType() === this.campaignTypes.People">
+
+        <form [formGroup]="formPeople" (keydown.enter)="$event.preventDefault()">
+            <people-step-2 *ngIf="currentStep === 1" [isEditing]="IsEditing" [stepData]="currentGroup" (WizardEvent)="getWizardEvent($event)"> </people-step-2>
+            <people-step-3 *ngIf="currentStep === 2" [stepData]="currentGroup" (WizardEvent)="getWizardEvent($event)"> </people-step-3>
+            <people-step-4 *ngIf="currentStep === 3" [stepData]="currentGroup" (WizardEvent)="getWizardEvent($event)"> </people-step-4>
+            <people-step-5 *ngIf="currentStep === 4" [stepData]="currentGroup" (WizardEvent)="getWizardEvent($event)" [formData]="formPeople"> </people-step-5>
+            <people-step-6 *ngIf="currentStep === 5" [stepData]="currentGroup" (WizardEvent)="getWizardEvent($event)"> </people-step-6>
+        </form>
+
+    </div>
+
+
+</div>

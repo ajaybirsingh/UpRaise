@@ -1,0 +1,61 @@
+<div class="grid grid-flow-col auto-cols-max justify-center mt-5 items-center ">
+    <div class="text-3xl rounded-full bg-blue-500 text-white w-12 text-center font-bold">8</div>
+    <div class="pl-4 text-2xl font-bold text-gray-500">Your campaign is live!</div>
+</div>
+
+<div class="mt-4 mb-8 text-2xl text-center">Your beneficiary will be automatically notified today.</div>
+<div class="mt-4 mb-8 text-2xl text-center">Would you like to add a personal note?</div>
+
+
+<ng-container [formGroup]="stepData">
+
+    <div class="mt-4">
+        <!--
+        <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+            -->
+        <div class="mt-1 border-b border-gray-300 focus-within:border-indigo-600 grid grid-flow-col">
+            <div>
+                <input type="text" name="beneficiaryMessage" id="beneficiaryMessage" formControlName="beneficiaryMessage" class="block w-full border-0 border-b border-transparent bg-gray-200 focus:border-indigo-600 focus:ring-0 sm:text-sm" placeholder="Beneficiary message">
+            </div>
+        </div>
+    </div>
+
+</ng-container>
+
+<div class="mt-1 text-sm sm:text-lg font-medium">Share your campaign</div>
+
+<div class="grid grid-cols-3 gap-4 content-center">
+    <div class="w-16"><img src="assets/logos/email.svg" /></div>
+    <div class="w-16"><img src="assets/logos/instagram.svg" /></div>
+    <div class="w-16"><img src="assets/logos/facebook.svg" /></div>
+
+    <div class="w-16"><img src="assets/logos/linkedin.svg" /></div>
+    <div class="w-16"><img src="assets/logos/hashtag.svg" /></div>
+    <div class="w-16"><img src="assets/logos/snapchat.svg" /></div>
+</div>
+
+
+
+<div class="place-items-center mt-5 grid grid-flow-col gap-24">
+    <button type="button" (click)="prev()"
+            class="w-full items-center px-12 py-2 border border-transparent shadow-sm text-base text-2xl rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 grid grid-flow-col auto-cols-max justify-center">
+        <div>
+            <mat-icon class="text-white mr-2 mt-2" [svgIcon]="'heroicons_solid:arrow-sm-left'"></mat-icon>
+        </div>
+
+        <div>
+            Prev
+        </div>
+    </button>
+
+
+    <button type="button" [disabled]="!stepData.valid" (click)="next()"
+            class="w-full items-center px-12 py-2 border border-transparent shadow-sm text-base text-2xl rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 grid grid-flow-col auto-cols-max justify-center">
+        <div>
+            Create Draft
+        </div>
+        <div>
+            <mat-icon class="text-white ml-2 mt-2" [svgIcon]="'heroicons_solid:arrow-sm-right'"></mat-icon>
+        </div>
+    </button>
+</div>

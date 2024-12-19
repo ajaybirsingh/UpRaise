@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32602.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpRaise", "UpRaise\UpRaise.csproj", "{D8EF69C3-4A2F-4857-83CE-AA0ACB4D0B79}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpRaise.Tests", "UpRaise.Tests\UpRaise.Tests.csproj", "{9BC103AF-B766-4370-92E9-6F2CC12FFFA7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpRaise.Models", "UpRaise.Models\UpRaise.Models.csproj", "{9A58F286-F3E1-40BC-B8F0-2009A6C0EDB7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpRaise.Helpers", "UpRaise.Helpers\UpRaise.Helpers.csproj", "{04A40F08-5E66-45C4-84F1-34BD23205DA9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UpRaise.Services", "UpRaise.Services\UpRaise.Services.csproj", "{2ABC1202-164B-4C8C-B31F-66955679448B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Function.ResizeImages", "Function.ResizeImages\Function.ResizeImages.csproj", "{494F4474-D999-4EDD-BCFC-A3D778B60424}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D8EF69C3-4A2F-4857-83CE-AA0ACB4D0B79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8EF69C3-4A2F-4857-83CE-AA0ACB4D0B79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8EF69C3-4A2F-4857-83CE-AA0ACB4D0B79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8EF69C3-4A2F-4857-83CE-AA0ACB4D0B79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BC103AF-B766-4370-92E9-6F2CC12FFFA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BC103AF-B766-4370-92E9-6F2CC12FFFA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BC103AF-B766-4370-92E9-6F2CC12FFFA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BC103AF-B766-4370-92E9-6F2CC12FFFA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A58F286-F3E1-40BC-B8F0-2009A6C0EDB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A58F286-F3E1-40BC-B8F0-2009A6C0EDB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A58F286-F3E1-40BC-B8F0-2009A6C0EDB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A58F286-F3E1-40BC-B8F0-2009A6C0EDB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04A40F08-5E66-45C4-84F1-34BD23205DA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04A40F08-5E66-45C4-84F1-34BD23205DA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04A40F08-5E66-45C4-84F1-34BD23205DA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04A40F08-5E66-45C4-84F1-34BD23205DA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ABC1202-164B-4C8C-B31F-66955679448B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ABC1202-164B-4C8C-B31F-66955679448B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ABC1202-164B-4C8C-B31F-66955679448B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ABC1202-164B-4C8C-B31F-66955679448B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{494F4474-D999-4EDD-BCFC-A3D778B60424}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{494F4474-D999-4EDD-BCFC-A3D778B60424}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{494F4474-D999-4EDD-BCFC-A3D778B60424}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{494F4474-D999-4EDD-BCFC-A3D778B60424}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7DCF3D96-0A89-4951-90F8-B0694DCD6FF4}
+	EndGlobalSection
+EndGlobal

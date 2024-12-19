@@ -1,0 +1,78 @@
+<div class="grid grid-flow-col auto-cols-max justify-center mt-5 items-center ">
+    <div class="text-3xl rounded-full bg-blue-500 text-white w-12 text-center font-bold">5</div>
+    <div class="pl-4 text-2xl font-bold text-gray-500">What must the beneficiary do to get the funds?</div>
+</div>
+
+<div class="mt-4 mb-8 text-2xl text-center">
+    Set the conditions that an organization must agree to in order to receive your campaign’s money.
+</div>
+
+
+<ng-container [formGroup]="stepData">
+
+    <div>
+        <label for="distributionTerms" class="block text-gray-900">Distribution Terms</label>
+
+        <input type="text" #addTerm placeholder="Add term" (keydown)="onKeyDown($event)" name="distributionTerms" id="distributionTerms" class="py-3 px-4 block w-full shadow-sm text-gray-900 focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+
+        <div class="mt-2">
+            <mat-chip-list class="">
+
+                <mat-chip *ngFor="let term of distributionTerms.value" class="mt-5"
+                          [removable]="term.removable" (removed)="removeOption(term)">
+
+                    {{term.label}}
+
+                    <mat-icon matChipRemove *ngIf="term.removable">cancel</mat-icon>
+
+                </mat-chip>
+
+            </mat-chip-list>
+        </div>
+    </div>
+
+</ng-container>
+
+
+<div class="place-items-center mt-5 grid grid-flow-col gap-24">
+    <button type="button" (click)="prev()"
+            class="w-full items-center px-12 py-2 border border-transparent shadow-sm text-base text-2xl rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 grid grid-flow-col auto-cols-max justify-center">
+        <div>
+            <mat-icon class="text-white mr-2 mt-2" [svgIcon]="'heroicons_solid:arrow-sm-left'"></mat-icon>
+        </div>
+
+        <div>
+            Prev
+        </div>
+    </button>
+
+
+    <!-- [disabled]="!stepData.valid" -->
+    <button type="button" (click)="next()"
+            [disabled]="!stepData.valid"
+            class="w-full items-center px-12 py-2 border border-transparent shadow-sm text-base text-2xl rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 grid grid-flow-col auto-cols-max justify-center">
+        <div>
+            Continue
+        </div>
+        <div>
+            <mat-icon class="text-white ml-2 mt-2" [svgIcon]="'heroicons_solid:arrow-sm-right'"></mat-icon>
+        </div>
+    </button>
+
+</div>
+
+
+<fuse-card class="flex flex-col w-full p-8 pt-6 pb-4 filter-list bg-gray-200">
+    <div class="text-2xl font-semibold leading-tight">Tips</div>
+
+    <div class="flex-auto max-w-3xl prose prose-sm">
+        <ul>
+            <li>
+                Be specific about what you want the organization to do show that the conditions have been met.</li>
+            <li>
+                The more details, the better!
+            </li>
+        </ul>
+    </div>
+
+</fuse-card>

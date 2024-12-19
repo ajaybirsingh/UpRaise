@@ -1,0 +1,100 @@
+<div class="grid grid-flow-col auto-cols-max justify-center mt-5 items-center ">
+    <div class="text-3xl rounded-full bg-blue-500 text-white w-12 text-center font-bold">4</div>
+    <div class="pl-4 text-2xl font-bold">Who is going to benefit?</div>
+</div>
+
+<div class="mt-4 mb-8 text-2xl text-center">
+    Tell us about the person you want to receive your funds.
+</div>
+
+
+
+<ng-container [formGroup]="stepData">
+    <div class="grid grid-cols-1 gap-y-6 pt-6">
+        <div>
+            <div class="text-gray-900">
+                Beneficiary name (if you know it)
+            </div>
+
+            <div class="mt-1 grid grid-flow-col">
+                <div>
+                    <input type="text" name="beneficiaryName" formControlName="beneficiaryName" id="beneficiaryName" class="block w-full border  border-gray-300  focus:border-indigo-600 focus:ring-0" placeholder="">
+                </div>
+
+                <div class="absolute right-0 pr-6 py-2" *ngIf="stepData.get('beneficiaryName').errors && stepData.get('beneficiaryName').hasError('required')">
+                    <mat-icon class="text-red-500" [svgIcon]="'heroicons_solid:exclamation-circle'"></mat-icon>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <div class="text-gray-900">
+                Beneficiary email (if you know it)
+            </div>
+
+            <div class="mt-1 grid grid-flow-col">
+                <div>
+                    <input type="text" name="beneficiaryEmail" id="beneficiaryEmail" formControlName="beneficiaryEmail" class="block w-full border  border-gray-300  focus:border-indigo-600 focus:ring-0" placeholder="">
+                </div>
+
+                <div class="absolute right-0 pr-6 py-2" *ngIf="stepData.get('beneficiaryEmail').errors && stepData.get('beneficiaryEmail').hasError('required')">
+                    <mat-icon class="text-red-500" [svgIcon]="'heroicons_solid:exclamation-circle'"></mat-icon>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <div class="text-gray-900">
+                Beneficiary message
+            </div>
+
+            <div class="mt-1 grid grid-flow-col">
+                <div>
+                    <input type="text" name="beneficiaryMessage" id="beneficiaryMessage" formControlName="beneficiaryMessage" class="block w-full border  border-gray-300  focus:border-indigo-600 focus:ring-0" placeholder="">
+                </div>
+            </div>
+        </div>
+
+    </div>
+</ng-container>
+
+
+<div class="place-items-center mt-5 grid grid-flow-col gap-24">
+    <button type="button" (click)="prev()"
+            class="w-full items-center px-12 py-2 border border-transparent shadow-sm text-base text-2xl rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 grid grid-flow-col auto-cols-max justify-center">
+        <div>
+            <mat-icon class="text-white mr-2 mt-2" [svgIcon]="'heroicons_solid:arrow-sm-left'"></mat-icon>
+        </div>
+
+        <div>
+            Prev
+        </div>
+    </button>
+
+
+    <button type="button" [disabled]="!stepData.valid" (click)="next()"
+            class="w-full items-center px-12 py-2 border border-transparent shadow-sm text-base text-2xl rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 grid grid-flow-col auto-cols-max justify-center">
+        <div>
+            Continue
+        </div>
+        <div>
+            <mat-icon class="text-white ml-2 mt-2" [svgIcon]="'heroicons_solid:arrow-sm-right'"></mat-icon>
+        </div>
+    </button>
+</div>
+
+
+<fuse-card class="flex flex-col w-full p-8 pt-6 pb-4 filter-list bg-white mt-8">
+    <div class="text-2xl font-semibold leading-tight">Best Practices</div>
+
+    <div class="flex-auto max-w-3xl prose prose-sm">
+        <ul>
+            <li>Lorem ipsum dolor sit amet, consectetur adi piscing elit</li>
+            <li>Massa elementum feugiat blandit fermentum.</li>
+            <li>Lorem ipsum dolor sit amet, consectetur adi piscing elit</li>
+        </ul>
+    </div>
+
+</fuse-card>

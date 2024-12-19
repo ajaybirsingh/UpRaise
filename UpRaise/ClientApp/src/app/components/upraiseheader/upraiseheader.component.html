@@ -1,0 +1,105 @@
+<div class="relative bg-white">
+
+    <div class="flex justify-between items-center max-w-7xl mx-auto px-4 py-6 sm:px-6 md:justify-start md:space-x-10 lg:px-8">
+        <div class="flex justify-start lg:w-0 lg:flex-1">
+            <a href="#" class="md:flex items-center">
+                <span class="sr-only">UpRaise</span>
+
+                <img class="h-8 w-auto sm:h-10" src="../../../assets/images/logo/logo_512x512.png" alt="">
+                <img class="h-8 w-auto sm:h-10" src="../../../assets/images/logo/upraise_dark_large.png" alt="">
+            </a>
+        </div>
+
+        <nav class="md:flex space-x-10">
+
+            <a href="https://www.upraise.fund/#" class="text-base font-medium text-gray-500 hover:text-gray-900">
+                How It Works
+            </a>
+            <a href="https://www.upraise.fund/#PopularCampaigns" class="text-base font-medium text-gray-500 hover:text-gray-900">
+                Popular Campaigns
+            </a>
+            <a href="https://www.upraise.fund/#FundLocal" class="text-base font-medium text-gray-500 hover:text-gray-900">
+                Fund Local
+            </a>
+            <a href="https://www.upraise.fund/#OurTeam" class="text-base font-medium text-gray-500 hover:text-gray-900">
+                Our Team
+            </a>
+        </nav>
+
+
+        <div class="md:flex items-center justify-end md:flex-1 lg:w-0">
+
+            <div *ngIf="!isSignedIn">
+
+                <a href="/sign-in"
+                   class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
+                    Sign in
+                </a>
+                <a href="/sign-up"
+                   class="ml-8 whitespace-nowrap inline-flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600 bg-origin-border px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white hover:from-purple-700 hover:to-indigo-700">
+                    Sign up
+                </a>
+            </div>
+
+            <div *ngIf="isSignedIn">
+                <a class="" mat-flat-button [color]="'primary'" [routerLink]="'/dashboards/campaign'">
+                    Go to Dashboard
+                    <mat-icon class="ml-2 icon-size-5" [svgIcon]="'heroicons_solid:arrow-narrow-right'"></mat-icon>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!--
+      Mobile
+    -->
+    <!--absolute z-30 top-0 inset-x-0 p-2 transition transform origin-top-right-->
+    <div class="md:hidden">
+        <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
+            <div class="py-6 px-5">
+                <div class="grid grid-cols-2 gap-4">
+                    <a href="https://www.upraise.fund/#" class="text-base font-medium text-gray-900 hover:text-gray-700">
+                        How It Works
+                    </a>
+                    <a href="https://www.upraise.fund/#PopularCampaigns" class="text-base font-medium text-gray-900 hover:text-gray-700">
+                        Popular Campaigns
+                    </a>
+                    <a href="https://www.upraise.fund/#FundLocal" class="text-base font-medium text-gray-900 hover:text-gray-700">
+                        Fund Local
+                    </a>
+                    <a href="https://www.upraise.fund/#OurTeam" class="text-base font-medium text-gray-900 hover:text-gray-700">
+                        Our Team
+                    </a>
+                </div>
+
+                <div class="mt-6">
+                    <div *ngIf="!isSignedIn">
+                        <a href="/sign-in"
+                           class="w-full flex items-center justify-center bg-gradient-to-r from-purple-600 to-indigo-600 bg-origin-border px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white hover:from-purple-700 hover:to-indigo-700">
+                            Sign up
+                        </a>
+                        <p class="mt-6 text-center text-base font-medium text-gray-500">
+                            Existing customer?
+                            <a href="/sign-up" class="text-gray-900">
+                                Sign in
+                            </a>
+                        </p>
+                    </div>
+
+                    <div *ngIf="isSignedIn">
+                        <a class="" mat-flat-button [color]="'primary'" [routerLink]="'/dashboards/campaign'">
+                            Go to Dashboard
+                            <mat-icon class="ml-2 icon-size-5" [svgIcon]="'heroicons_solid:arrow-narrow-right'"></mat-icon>
+                        </a>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>

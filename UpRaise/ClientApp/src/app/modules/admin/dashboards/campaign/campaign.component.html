@@ -1,0 +1,313 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Header -->
+    <div class="dark bg-card dark:border-b">
+        <div class="flex flex-col w-full max-w-screen-xl mx-auto px-6 sm:px-8">
+            <div class="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 my-8 sm:my-12">
+                <!-- Avatar and name -->
+                <div class="flex flex-auto items-center min-w-0">
+                    <div class="flex-0 w-16 h-16 rounded-full overflow-hidden">
+
+                        <!-- rounded-full-->
+                        <img class="w-full h-full object-cover " *ngIf="user.pictureURL" [src]="this._userService.getProfilePictureURL(user.aliasId, user.updatedAt) | secure | async">
+                        <mat-icon *ngIf="!user.pictureURL" [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
+
+                    </div>
+                    <div class="flex flex-col min-w-0 ml-4">
+                        <ng-container *transloco="let t">
+                            <div class="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate">{{t('welcome-back')}}, {{user.firstName}}!</div>
+                        </ng-container>
+                        <div class="flex items-center">
+                            <mat-icon class="icon-size-5"
+                                      [svgIcon]="'heroicons_solid:bell'"></mat-icon>
+                            <div class="ml-1.5 leading-6 truncate text-secondary">You have 2 new campaign messages and 15 new tasks</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Actions -->
+                <div class="flex items-center mt-6 sm:mt-0 sm:ml-2 space-x-3">
+
+                    <!-- bg-accent-600 -->
+                    <button class="fuse-mat-button-rounded"
+                            mat-flat-button
+                            [color]="'primary'">
+                        <mat-icon class="icon-size-5"
+                                  [svgIcon]="'heroicons_solid:mail'"></mat-icon>
+                        <span class="ml-2">Campaign Messages</span>
+                    </button>
+                </div>
+            </div>
+            <!-- Project selector -->
+            <div class="flex items-center" *ngIf="selectedCampaign">
+                <div class="px-4 py-2 rounded-tl-xl overflow-hidden bg-hover">
+                    <div class="sm:text-lg leading-6 truncate">{{selectedCampaign.name}}</div>
+                </div>
+
+                <div class="ml-px rounded-tr-xl bg-hover">
+                    <button [matMenuTriggerFor]="projectsMenu"
+                            mat-icon-button>
+                        <mat-icon [svgIcon]="'heroicons_outline:dots-horizontal'"></mat-icon>
+                    </button>
+                    <mat-menu #projectsMenu="matMenu">
+                        <button mat-menu-item *ngFor="let campaign of campaigns"
+                                (click)="changeSelectedCampaign(campaign)">
+                            {{campaign.name}}
+                        </button>
+                    </mat-menu>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="selectedCampaign; else noCampaigns">
+        <div class="flex-auto mt-4 sm:mt-6" *ngIf="isBusy">
+            <mat-progress-bar mode="query"></mat-progress-bar>
+        </div>
+
+        <!-- Main -->
+        <div class="flex-auto mt-4 sm:mt-6" *ngIf="!isBusy">
+            <div class="w-full max-w-screen-xl mx-auto">
+
+                <!-- Tabs -->
+                <mat-tab-group class="sm:px-2"
+                               [animationDuration]="'0'">
+
+                    <!-- Home -->
+                    <mat-tab label="Home">
+                        <ng-template matTabContent>
+
+                            <div class="w-full flex">
+                                <div class="text-xl ">Type</div>
+                                <div class="text-secondary flex items-center ml-1">{{selectedCampaignData.type | campaignType}}</div>
+                            </div>
+
+                            <div class="w-full flex">
+                                <div class="text-xl ">Name</div>
+                                <div class="text-secondary flex items-center ml-1">{{selectedCampaignData.name}}</div>
+                            </div>
+
+                            <div class="w-full flex" *ngIf="selectedCampaignData.location">
+                                <div class="text-xl ">Location</div>
+                                <div class="text-secondary flex items-center ml-1">{{selectedCampaignData.location}}</div>
+                            </div>
+                            <div class="w-full flex">
+                                <div class="text-xl ">Date</div>
+                                <div class="text-secondary flex items-center ml-1">Start Date {{selectedCampaignData.startDate | date:'shortDate'}}, End Date {{selectedCampaignData.endDate | date:'shortDate'}}</div>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 w-full min-w-0">
+                                <!-- # Contributors -->
+                                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                                    <div class="flex items-start justify-between">
+                                        <div class="text-lg font-medium tracking-tight leading-6 truncate"># Contributors</div>
+                                        <!--
+                                        <div class="ml-2 -mt-2 -mr-3">
+                                            <button mat-icon-button [matMenuTriggerFor]="summaryMenu">
+                                                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:dots-vertical'"></mat-icon>
+                                            </button>
+                                            <mat-menu #summaryMenu="matMenu">
+                                                <button mat-menu-item>Yesterday</button>
+                                                <button mat-menu-item>2 days ago</button>
+                                                <button mat-menu-item>3 days ago</button>
+                                            </mat-menu>
+                                        </div>
+                                        -->
+                                    </div>
+                                    <div class="flex flex-col items-center mt-2">
+                                        <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-blue-500">{{selectedCampaignData.numberOfTotalContributors}}</div>
+                                        <div class="text-lg font-medium text-blue-600 dark:text-blue-500">Total</div>
+                                        <div class="flex items-center justify-center w-full mt-5 text-secondary">
+                                            <div class="text-md font-medium truncate">Unique:</div>
+                                            <div class="ml-1.5 text-lg font-semibold">{{selectedCampaignData.numberOfUniqueContributors}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Total Raised -->
+                                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                                    <div class="flex items-start justify-between">
+                                        <div class="text-lg font-medium tracking-tight leading-6 truncate">Funds Raised</div>
+                                    </div>
+                                    <div class="flex flex-col items-center mt-2">
+                                        <div class="text-3xl sm:text-4xl font-bold tracking-tight leading-none text-red-500">{{selectedCampaignData.amountRaised | currency}}</div>
+                                        <div class="text-lg font-medium text-red-600 dark:text-red-500">Total</div>
+                                        <div class="flex items-center justify-center w-full mt-5 text-secondary">
+                                            <div class="text-md font-medium truncate">Goal:</div>
+                                            <div class="ml-1.5 text-lg font-semibold">{{selectedCampaignData.fundraisingGoal | currency}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Days Left -->
+                                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                                    <div class="flex items-start justify-between">
+                                        <div class="text-lg font-medium tracking-tight leading-6 truncate">Days Left</div>
+                                    </div>
+                                    <div class="flex flex-col items-center mt-2">
+                                        <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-amber-500">{{selectedCampaignData.daysLeft}}</div>
+
+                                        <div class="flex items-center justify-center w-full mt-5 text-secondary" *ngIf="selectedCampaignData.daysLeft === 0">
+                                            <div class="text-md font-medium truncate">Completed</div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Features -->
+                                <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                                    <div class="flex items-start justify-between">
+                                        <div class="text-lg font-medium tracking-tight leading-6 truncate">Funded</div>
+                                    </div>
+                                    <div class="flex flex-col items-center mt-2">
+                                        <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-green-500">{{ selectedCampaignData.amountRaised / selectedCampaignData.fundraisingGoal | percent:'1.2'}}</div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Contributions -->
+                            <div class="flex flex-col sm:flex-row items-start justify-between sm:col-span-2 md:col-span-4 flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden mt-8">
+
+                                <div class="text-lg font-medium tracking-tight leading-6 truncate">Contributions</div>
+
+                            </div>
+
+                        </ng-template>
+                    </mat-tab>
+                    <!-- Activities -->
+                    <mat-tab label="Activities">
+                        <ng-template matTabContent>
+                            <div class="flex flex-col flex-auto px-3 py-2 sm:px-8 sm:pt-3 sm:pb-4">
+
+                                <!-- Activity feed -->
+                                <div class="w-full max-w-3xl">
+
+                                    <!-- Title -->
+                                    <div class="text-4xl font-extrabold tracking-tight leading-none">Contribution Activities</div>
+                                    <div class="mt-1.5 text-lg text-secondary">Detail contributions for the selected campaign, starting with the most recent.</div>
+
+                                    <ng-container *ngIf="activities; else loading">
+                                        <ng-container *ngIf="activities.length; else noActivity">
+                                            <div class="mt-8">
+                                                <ol>
+                                                    <!-- Activities -->
+                                                    <ng-container *ngFor="let activity of activities; let i = index; let first = first; let last = last; trackBy: trackByFn">
+
+                                                        <!-- Date separator -->
+                                                        <ng-container *ngIf="first || !isSameDay(activity.date, activities[i - 1].date)">
+                                                            <li class="relative flex py-7">
+                                                                <div class="relative py-2 px-8 text-md font-medium leading-5 rounded-full bg-primary text-on-primary">
+                                                                    {{getRelativeFormat(activity.date)}}
+                                                                </div>
+                                                            </li>
+                                                        </ng-container>
+
+                                                        <!-- Activity -->
+                                                        <li class="relative flex py-7">
+                                                            <!-- Line -->
+                                                            <ng-container *ngIf="!last && isSameDay(activity.date, activities[i + 1].date)">
+                                                                <div class="absolute top-7 left-5 w-0.5 h-full -ml-px bg-gray-300 dark:bg-gray-600"></div>
+                                                            </ng-container>
+
+                                                            <div class="relative flex flex-auto">
+
+                                                                <!-- User Image -->
+                                                                <ng-container *ngIf="activity.userAliasId;else image">
+                                                                    <img class="flex-shrink-0 w-10 h-10 mr-4 rounded-full overflow-hidden object-cover object-center"
+                                                                         [src]="this._userService.getProfilePictureURL(activity.userAliasId, null) | secure | async">
+                                                                </ng-container>
+
+                                                                <!-- Image -->
+                                                                <ng-template #image>
+                                                                    <ng-container *ngIf="activity.image;else icon">
+                                                                        <img class="flex-shrink-0 w-10 h-10 mr-4 rounded-full overflow-hidden object-cover object-center"
+                                                                             [src]="activity.image"
+                                                                             [alt]="'Activity image'">
+                                                                    </ng-container>
+                                                                </ng-template>
+
+                                                                <!-- Icon -->
+                                                                <ng-template #icon>
+                                                                    <div class="flex flex-shrink-0 items-center justify-center w-10 h-10 mr-4 rounded-full bg-gray-400">
+                                                                        <mat-icon class="icon-size-5 text-white"
+                                                                                  [svgIcon]="activity.icon">
+                                                                        </mat-icon>
+                                                                    </div>
+                                                                </ng-template>
+
+
+                                                                <!-- Content -->
+                                                                <div class="flex flex-col flex-auto items-start">
+                                                                    <!-- Description -->
+                                                                    <ng-container *ngIf="activity.description">
+                                                                        <div [innerHTML]="activity.description"></div>
+                                                                    </ng-container>
+                                                                    <div class="flex flex-col sm:flex-row sm:items-center mt-2 sm:mt-1 sm:space-x-2 text-md leading-5">
+                                                                        <!-- Date -->
+                                                                        <div class="text-secondary">
+                                                                            {{activity.date | date:'MMM dd, h:mm a'}}
+                                                                        </div>
+                                                                        <!-- Linked content -->
+                                                                        <ng-container *ngIf="activity.linkedContent">
+                                                                            <div class="hidden sm:block">&bull;</div>
+                                                                            <!-- Internal link -->
+                                                                            <ng-container *ngIf="activity.useRouter">
+                                                                                <a class="cursor-pointer text-primary"
+                                                                                   [routerLink]="activity.link">
+                                                                                    {{activity.linkedContent}}
+                                                                                </a>
+                                                                            </ng-container>
+                                                                            <!-- External link -->
+                                                                            <ng-container *ngIf="!activity.useRouter">
+                                                                                <a class="cursor-pointer text-primary"
+                                                                                   [href]="activity.link"
+                                                                                   target="_blank">
+                                                                                    {{activity.linkedContent}}
+                                                                                </a>
+                                                                            </ng-container>
+                                                                        </ng-container>
+                                                                    </div>
+                                                                    <!-- Extra content -->
+                                                                    <ng-container *ngIf="activity.extraContent">
+                                                                        <div class="mt-4 py-4 px-5 rounded-lg bg-gray-200 dark:bg-gray-800"
+                                                                             [innerHTML]="activity.extraContent"></div>
+                                                                    </ng-container>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    </ng-container>
+                                                </ol>
+                                            </div>
+                                        </ng-container>
+                                    </ng-container>
+
+                                    <!-- Loading template -->
+                                    <ng-template #loading>
+                                        Loading...
+                                    </ng-template>
+
+                                    <!-- No Activity template -->
+                                    <ng-template #noActivity>
+                                        There are is activity at the moment...
+                                    </ng-template>
+
+                                </div>
+
+
+                            </div>
+                        </ng-template>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #noCampaigns>
+        <div class="text-center mt-10">
+            <p class="text-3xl font-semibold text-indigo-600 uppercase tracking-wide">:(</p>
+            <h1 class="mt-2 text-4xl font-extrabold text-gray-900 tracking-tight sm:text-5xl">Please create a campaign to begin.</h1>
+            <div class="mt-6">
+                <a [routerLink]="'/funding/new-campaign'" class="text-base font-medium text-indigo-600 hover:text-indigo-500">Create<span aria-hidden="true"> &rarr;</span></a>
+            </div>
+        </div>
+    </ng-template>
+</div>

@@ -1,0 +1,95 @@
+<div class="max-w-7xl mx-auto py-6 lg:py-6 lg:items-center lg:justify-between">
+    <ul role="list" class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
+
+        <li class="col-span-1 bg-white rounded-lg shadow-lg relative border border-gray-300" *ngFor="let campaign of campaigns; trackBy: trackByFn">
+
+            <div>
+                <ng-container *ngIf="campaign.headerPictureURL; else headerUseFirstImage">
+                    <img class="mx-auto h-72" src="{{campaign.headerPictureURL}}" alt="">
+                </ng-container>
+
+                <ng-template #headerUseFirstImage>
+                    <img class="mx-auto h-72" *ngIf="campaign.photos && campaign.photos.length" [src]="campaign.photos[0]" alt="">
+                </ng-template>
+            </div>
+
+            <div class="overflow-hidden h-2 text-xs flex rounded bg-blue-200">
+                <div [ngStyle]="{'width': campaign.fundedPercentage + '%'}" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"></div>
+            </div>
+
+            <div class="px-4 py-2">
+
+                <div *ngIf="campaign.beneficiary">
+                    <div *ngIf="campaign.typeId == 2" class="text-base text-indigo-600 tracking-wide">{{campaign.category}} {{campaign.beneficiary}}</div>
+                    <div *ngIf="campaign.typeId != 2">
+                        <div class="text-base text-indigo-600 tracking-wide">{{campaign.category}}</div>
+                        <div class="text-base text-indigo-600 tracking-wide">{{campaign.beneficiary}}</div>
+                    </div>
+                </div>
+                <div *ngIf="!campaign.beneficiary" class="text-base text-indigo-600 tracking-wide">{{campaign.category}}</div>
+
+                <h3 class="text-lg leading-6 font-medium text-gray-900">{{campaign.name}}</h3>
+                <p class="mt-1 text-sm text-gray-500">{{campaign.summary}}</p>
+            </div>
+
+            <!-- pull to the bottom -->
+            <div class="h-40">
+                <div class="px-4 py-2 absolute bottom-0">
+                    <div class="mt-4 grid grid-cols-4 gap-6">
+                        <div class="col-span-1">
+                            <div class="text-base text-black font-semibold tracking-wide">Raised</div>
+                            <div class="text-base text-gray-500 tracking-wide">{{campaign.fundedPercentage}}%</div>
+                        </div>
+                        <div class="col-span-2">
+                            <div *ngIf="campaign.fundraisingGoals">
+                                <div class="text-base text-black font-semibold tracking-wide">Goal</div>
+                                <div class="text-base text-gray-500 tracking-wide">USD {{dollarFormatter(campaign.fundraisingGoals)}}</div>
+                            </div>
+                        </div>
+
+                        <div class="col-span-1">
+                            <div class="text-base text-black font-semibold tracking-wide">Donors</div>
+                            <div class="text-base text-gray-500 tracking-wide">{{campaign.numberOfDonors}}</div>
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                            <div class="w-full border-t border-gray-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white px-4 py-5 sm:px-6">
+                        <div class="-ml-4 -mt-4 flex justify-between items-center flex-wrap sm:flex-nowrap">
+                            <div class="mt-4">
+                                <div class="flex items-center">
+
+                                    <div *ngIf="campaign.organizedByProfilePictureURL" class="flex-shrink-0"><img class="h-12 w-12 rounded-full" src="{{campaign.organizedByProfilePictureURL}}" alt=""></div>
+                                    <div *ngIf="!campaign.organizedByProfilePictureURL" class="flex-shrink-0"><img class="h-12 w-12 rounded-full" src="assets/images/avatars/user.png" alt=""></div>
+
+                                    <div class="ml-4">
+                                        <p class="text-sm text-gray-500"><a href="#">Organized By</a></p>
+                                        <h3 class="text-lg leading-6 font-medium text-gray-900">{{campaign.organizedBy}}</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ml-4 mt-4 flex-shrink-0 flex">
+                                <button type="button" [routerLink]="['/home/detail', campaign.typeId, campaign.id]" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                    <span>Details</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 9l3 3m0 0l-3 3m3-3H8m13 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+
+    </ul>
+</div>

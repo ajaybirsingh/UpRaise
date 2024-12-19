@@ -1,0 +1,167 @@
+<div class="flex flex-col flex-auto min-w-0">
+
+    <!-- Header -->
+    <div class="flex flex-col shadow bg-card">
+
+        <!-- Cover image -->
+        <div class="flex flex-col flex-0 lg:flex-row items-center max-w-5xl w-full mx-auto px-8 lg:h-18 bg-card ">
+            <a class="items-center pl-12 pr-14 " mat-flat-button [color]="'primary'" [routerLink]="['/home/detail', campaign.type, campaign.id]">
+                <span class="inline-flex items-center">
+                    <mat-icon class="icon-size-5 text-current" [svgIcon]="'heroicons_solid:arrow-sm-left'"></mat-icon>
+                    <span class="ml-1.5 font-medium leading-5">Back to campaign</span>
+                </span>
+            </a>
+
+            <img class="object-scale-down h-14 w-full"
+                 src="assets/images/logo/upraise_dark_large.png"
+                 alt="UpRaise">
+
+            <a class="items-center pl-12 pr-12" mat-flat-button [color]="'primary'" [routerLink]="'/dashboards/campaign'">
+                <span *ngIf="!isSignedIn">Sign In</span>
+                <span *ngIf="isSignedIn">Go to Dashboard</span>
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="flex flex-auto justify-center w-full max-w-5xl mx-auto p-6 sm:p-8">
+
+        <div class="lg:flex flex-col w-full items-start">
+
+            <!--
+            <div class="w-full bg-indigo-700 mb-4 rounded">
+                <div class="py-4 px-4">
+                    <h2 class="text-3xl font-extrabold text-white">
+                        Raised {{campaign.fundingAmountToDate | currency}} of {{campaign.fundraisingGoals | currency}} goal.
+                    </h2>
+                    <div class="flow-root mt-4">
+                        <mat-progress-bar mode="determinate" color="accent" class="h-2" value="{{campaign.fundedPercentage}}"></mat-progress-bar>
+                    </div>
+                </div>
+            </div>
+                -->
+
+            <fuse-card class="flex flex-col w-full p-5 mb-4">
+
+                <div class="grid grid-rows-3 grid-flow-col gap-4">
+
+                    <div class="row-span-3">
+                        <img class="h-40"
+                             *ngIf="campaign.photos && campaign.photos.length"
+                             [src]="campaign.photos[0]"
+                             alt="Header Image">
+                    </div>
+
+                    <div class="col-span-2 text-2xl font-semibold leading-tight">
+                        {{campaign.name}}
+                    </div>
+
+                    <div class="row-span-2 col-span-2 mt-4">
+                        {{campaign.description}}
+                    </div>
+                </div>
+
+            </fuse-card>
+
+            <fuse-card class="flex flex-col w-full p-5 mb-4">
+
+                <div class="grid grid-flow-row auto-rows-max">
+
+                    <div>
+
+                        <fieldset>
+
+                            <legend class="text-lg font-medium text-gray-900">
+                                Contribution Type
+                            </legend>
+
+                            <div class="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-4 sm:gap-x-4 row-auto">
+
+                                <!-- Checked: "border-transparent", Not Checked: "border-gray-300" Active: "ring-2 ring-indigo-500" -->
+                                <label class="relative bg-white border rounded-lg shadow-sm p-4 flex cursor-pointer focus:outline-none">
+                                    <input type="radio" name="contributionType"
+                                           [value]="ContributionTypes.CreditCard" [(ngModel)]="contributionType"
+                                           [ngClass]="{'border-transparent ring-2 ring-indigo-500':contributionType == ContributionTypes.CreditCard,
+                                                       'border-gray-300':contributionType != ContributionTypes.CreditCard}"
+                                           class="sr-only">
+                                    <div class="flex-1 flex flex-grow">
+                                        <div class="flex flex-col">
+                                            <span id="delivery-method-0-label" class="block text-sm font-medium text-gray-900">
+                                                Credit Card
+                                            </span>
+                                            <span id="delivery-method-0-description-0" class="mt-1 flex items-center text-sm text-gray-500">
+                                                VISA, MasterCard
+                                            </span>
+                                            <span class="mt-6 text-sm font-medium text-gray-900">
+                                                <div class="w-16"><img src="assets/icons/mastercard.svg" /></div>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!-- Not Checked: "hidden" Heroicon name: solid/check-circle -->
+                                    <svg class="h-5 w-5 text-indigo-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                         [ngClass]="{'hidden':contributionType != ContributionTypes.CreditCard}">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <!-- Active: "border", Not Active: "border-2" Checked: "border-indigo-500", Not Checked: "border-transparent" -->
+                                    <div class="absolute -inset-px rounded-lg border-2 pointer-events-none"
+                                         [ngClass]="{'border-2 border-indigo-500':contributionType == ContributionTypes.CreditCard,
+                                                     'border-transparent':contributionType != ContributionTypes.CreditCard}">
+                                    </div>
+                                </label>
+
+                                <!-- Checked: "border-transparent", Not Checked: "border-gray-300" Active: "ring-2 ring-indigo-500" -->
+                                <label class="relative bg-white border rounded-lg shadow-sm p-4 flex cursor-pointer focus:outline-none">
+                                    <input type="radio" name="contributionType" [value]="ContributionTypes.Crypto" [(ngModel)]="contributionType"
+                                           [ngClass]="{'border-transparent ring-2 ring-indigo-500':contributionType == ContributionTypes.Crypto,
+                                                       'border-gray-300':contributionType != ContributionTypes.Crypto}"
+                                           class="sr-only">
+                                    <div class="flex-1 flex flex-grow">
+                                        <div class="flex flex-col">
+                                            <span id="delivery-method-0-label" class="block text-sm font-medium text-gray-900">
+                                                Crypto
+                                            </span>
+                                            <span id="delivery-method-0-description-0" class="mt-1 flex items-center text-sm text-gray-500">
+                                                Bitcoin (BTC), Bitcoin Cash (BCH), Ethereum (ETH), Dogecoin (DOGE), Litecoin (LTC)
+                                            </span>
+                                            <span class="mt-6 text-sm font-medium text-gray-900">
+                                                <div class="w-16"><img src="assets/icons/bitcoin.svg" /></div>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!-- Not Checked: "hidden" Heroicon name: solid/check-circle -->
+                                    <svg class="h-5 w-5 text-indigo-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                         [ngClass]="{'hidden':contributionType != ContributionTypes.Crypto}">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                    </svg>
+                                    <!-- Active: "border", Not Active: "border-2" Checked: "border-indigo-500", Not Checked: "border-transparent" -->
+                                    <div class="absolute -inset-px rounded-lg border-2 pointer-events-none"
+                                         [ngClass]="{'border-2 border-indigo-500':contributionType == ContributionTypes.Crypto,
+                                                     'border-transparent':contributionType != ContributionTypes.Crypto}"></div>
+                                </label>
+
+                            </div>
+
+                        </fieldset>
+
+                    </div>
+
+
+                    <div>
+                        <crypto *ngIf="contributionType == ContributionTypes.Crypto" [campaign]="campaign"></crypto>
+                        <stripe *ngIf="contributionType == ContributionTypes.CreditCard" [campaign]="campaign"></stripe>
+                    </div>
+
+                </div>
+            </fuse-card>
+
+
+        </div>
+
+    </div>
+
+    <upraisefooter></upraisefooter>
+
+</div>

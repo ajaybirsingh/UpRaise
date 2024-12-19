@@ -1,0 +1,272 @@
+<div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
+    <form action="#" method="POST">
+        <div class="shadow sm:rounded-md sm:overflow-hidden">
+            <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
+                <div>
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Profile</h3>
+                    <p class="mt-1 text-sm text-gray-500">This information will be displayed publicly so be careful what you share.</p>
+                </div>
+
+                <div class="grid grid-cols-3 gap-6">
+
+                    <div class="col-span-3">
+                        <div class="mt-1 flex items-center">
+
+                            <img class="inline-block bg-gray-100 rounded-full overflow-hidden h-24 w-24" *ngIf="!currentUser || !currentUser.pictureURL" [src]="this._userService.getBlankProfileURL()">
+                            <img class="inline-block bg-gray-100 rounded-full overflow-hidden h-24 w-24" *ngIf="currentUser && currentUser.pictureURL" [src]="this._userService.getProfilePictureURL(currentUser.aliasId, currentUser.updatedAt) | secure | async">
+
+                            <input type="file" ng2FileSelect hidden #fileInput (change)="fileChangeEvent($event)" accept=".jpg,.jpeg,.gif,.png,.bmp" />
+                            <button type="button" aria-label="Select Profile Picture" (click)="selectProfilePicture()" class="ml-5 bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Change
+                            </button>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </form>
+
+
+    <form [formGroup]="personalInformationFormGroup" method="POST">
+        <div class="shadow sm:rounded-md sm:overflow-hidden">
+            <div class="bg-white px-4 space-y-6">
+                <div>
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Personal Information</h3>
+                    <p class="mt-1 text-sm text-gray-500">Use a permanent address where you can recieve mail.</p>
+                </div>
+
+                <div class="grid grid-cols-6 gap-6">
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="firstName" class="block text-sm font-medium text-gray-700">First name</label>
+                        <input type="text" formControlName="firstName" name="firstName" id="firstName" autocomplete="given-name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="lastName" class="block text-sm font-medium text-gray-700">Last name</label>
+                        <input type="text" formControlName="lastName" name="lastName" id="lastName" autocomplete="family-name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="country" class="block text-sm font-medium text-gray-700">Country / Region</label>
+                        <select id="country" formControlName="country" name="country" autocomplete="country" class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option>United States</option>
+                            <option>Canada</option>
+                            <option>Mexico</option>
+                        </select>
+                    </div>
+
+                    <div class="col-span-6">
+                        <label for="streetAddress" class="block text-sm font-medium text-gray-700">Street address</label>
+                        <input type="text" formControlName="streetAddress" name="streetAddress" id="streetAddress" autocomplete="street-address" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+
+                    <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                        <label for="city" class="block text-sm font-medium text-gray-700">City</label>
+                        <input type="text" formControlName="city" name="city" id="city" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+
+                    <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                        <label for="stateProvince" class="block text-sm font-medium text-gray-700">State / Province</label>
+                        <input type="text" formControlName="stateProvince" name="stateProvince" id="stateProvince" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+
+                    <div class="col-span-6 sm:col-span-3 lg:col-span-2">
+                        <label for="zipPostal" class="block text-sm font-medium text-gray-700">ZIP / Postal</label>
+                        <input type="text" formControlName="zipPostal" name="zipPostal" id="zipPostal" autocomplete="postal-code" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    </div>
+
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="defaultCurrencyId" class="block text-sm font-medium text-gray-700">Default Currency</label>
+                        <select id="defaultCurrencyId" name="defaultCurrencyId" formControlName="defaultCurrencyId" autocomplete="defaultCurrency" class="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option value=1>USD - US Dollar</option>
+                            <option value=2>CAD - Canadian Dollar</option>
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+            <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                <button (click)="savePersonalInformation()" type="submit" class="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    Save
+                </button>
+            </div>
+        </div>
+    </form>
+
+
+
+    <form name="notifications" [formGroup]="notificationsFormGroup" method="POST">
+        <div class="shadow sm:rounded-md sm:overflow-hidden">
+            <div class="bg-white px-4 space-y-6">
+                <div>
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Notifications</h3>
+                    <p class="mt-1 text-sm text-gray-500">Notifications related to campaigns you are organizing.</p>
+                </div>
+
+                <fieldset>
+                    <legend class="text-base font-medium text-gray-900">Your Campaigns</legend>
+                    <div class="mt-4 space-y-4">
+                        <div class="flex items-start">
+                            <div class="h-5 flex items-center">
+                                <input id="notificationOnCampaignDonations" name="notificationOnCampaignDonations" formControlName="notificationOnCampaignDonations" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="notificationOnCampaignDonations" class="font-medium text-gray-700">Donation</label>
+                                <p class="text-gray-500">Get notified when someones donates to a campaign.</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex items-start">
+                                <div class="h-5 flex items-center">
+                                    <input id="notificationOnCampaignFollows" name="notificationOnCampaignFollows" formControlName="notificationOnCampaignFollows" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="notificationOnCampaignFollows" class="font-medium text-gray-700">Follow</label>
+                                    <p class="text-gray-500">Get notified when someone follows one of your campaigns.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+
+                <fieldset class="mt-6">
+                    <legend class="text-base font-medium text-gray-900">UpRaise Notifications</legend>
+                    <div class="mt-4 space-y-4">
+                        <div class="flex items-start">
+                            <div class="h-5 flex items-center">
+                                <input id="notificationOnUpraiseEvents" name="notificationOnUpraiseEvents" formControlName="notificationOnUpraiseEvents" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="notificationOnUpraiseEvents" class="font-medium text-gray-700">General</label>
+                                <p class="text-gray-500">Receive generic UpRaise community notifications.</p>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                <button (click)="saveNotifications()" type="submit" class="bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 inline-flex justify-center text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600">
+                    Save
+                </button>
+            </div>
+        </div>
+    </form>
+
+  
+</div>
+
+<!--
+<div class="">
+
+    <div class="">
+
+        <fuse-card class="flex flex-col w-full p-8 pt-6 pb-4 filter-list bg-gray-200">
+
+            <header>
+                <h2>Your Details</h2>
+            </header>
+
+            <div class="flex">
+
+                <div class="w-2/6">
+
+                    <div class="mx-auto">
+                        <div>
+                            <img style="height:100px;width:100px" *ngIf="!currentUser || !currentUser.pictureURL" class="rounded-full mx-auto" [src]="this._userService.getBlankProfileURL()">
+                            <img style="height:100px;width:100px" *ngIf="currentUser && currentUser.pictureURL" class="rounded-full mx-auto" [src]="this._userService.getProfilePictureURL(currentUser.aliasId, currentUser.updatedAt) | secure | async">
+                        </div>
+
+                        <div class="flex justify-center">
+                            <input type="file" ng2FileSelect hidden #fileInput (change)="fileChangeEvent($event)" accept=".jpg,.jpeg,.gif,.png,.bmp" />
+                            <button class="k-button k-primary" aria-label="Select Profile Picture" (click)="selectProfilePicture()">Select Profile Picture</button>
+                        </div>
+
+                        <div>Supported file types: JPEG, PNG, GIF, BMP</div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="w-4/6">
+
+                    <form name="form" [formGroup]="formGroup" class="mt-9 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+
+                        <div class="sm:col-span-2">
+                            <div class="flex justify-between">
+                                <label for="firstName" class="block text-sm font-medium text-gray-700">First name</label>
+                            </div>
+                            <div class="mt-1">
+                                <input typeof="text" id="firstName" name="firstName" aria-describedby="firstName-error" class="block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border border-gray-300 rounded-md">
+
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                    <mat-icon class="h-5 w-5 text-gray-400">account_circle</mat-icon>
+                                </div>
+                            </div>
+
+                            <p class="mt-2 text-sm text-red-600" id="firstName-error">First name is required!</p>
+                        </div>
+
+
+                        <div class="sm:col-span-2">
+                            <div class="flex justify-between">
+                                <label for="lastName" class="block text-sm font-medium text-gray-700">Choose a new password</label>
+                            </div>
+                            <div class="mt-1">
+                                <input typeof="text" id="lastName" name="lastName" aria-describedby="lastName-error" class="block w-full shadow-sm sm:text-sm focus:ring-indigo-500 focus:border-indigo-500 border border-gray-300 rounded-md">
+
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                    <mat-icon class="h-5 w-5 text-gray-400">account_circle</mat-icon>
+                                </div>
+                            </div>
+
+                            <p class="mt-2 text-sm text-red-600" id="lastName-error">Last name is required!</p>
+                        </div>
+
+                        <div class="flex justify-center">
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" aria-label="Update User Information" (click)="updateProfile()">Update</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </fuse-card>
+
+    -->
+<!--
+<fuse-card class="flex flex-col w-full p-8 pt-6 pb-4 filter-list bg-gray-200 mt-10">
+
+    <header>
+        <h2>2 Factor Authentication</h2>
+    </header>
+
+    <div>
+
+        <div class="m-5" style="margin-bottom:20px" *ngIf="!twoFactorDisplayAuthenticator">
+            <button class="k-button k-primary" type="button" (click)="setupAuthenticator()">
+                <span>{{(twoFactorUserSecurityDTO.hasAuthenticator && !twoFactorUserSecurityDTO.twoFactorEnabled) === true ? "Enable 2FA" : "Setup authenticator"}}</span>
+            </button>
+        </div>
+
+        <div class="m-5" *ngIf="!twoFactorDisplayAuthenticator && twoFactorUserSecurityDTO.twoFactorEnabled">
+            <button class="k-button k-primary" [disabled]="!twoFactorUserSecurityDTO.twoFactorEnabled" (click)="resetRecoverCodes()">Reset recovery codes</button>
+        </div>
+
+        <div class="m-5" *ngIf="!twoFactorDisplayAuthenticator && twoFactorUserSecurityDTO.twoFactorEnabled">
+            <button class="k-button k-primary k-bg-error" (click)="disable2FA()" aria-label="Disable 2FA">Disable 2FA</button>
+        </div>
+
+    </div>
+
+
+
+
+
+</fuse-card>
+    -->

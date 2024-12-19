@@ -1,0 +1,112 @@
+<div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
+    <h2 id="timeline-title" class="text-lg font-medium text-gray-900">Saving...</h2>
+
+    <!-- Activity Feed -->
+    <div class="mt-6 flow-root">
+        <ul role="list" class="-mb-8">
+
+            <li *ngFor="let progressInfo of progressInfos">
+                <div class="relative pb-8">
+                    <span class="absolute top-4 left-4 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                    <div class="relative flex space-x-3">
+                        <div>
+                            <span class="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center ring-8 ring-white">
+                                <mat-icon class="w-5 h-5 text-white" svgIcon="heroicons_solid:photograph"></mat-icon>
+                            </span>
+                        </div>
+
+                        <div>
+                            <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                                <div>
+                                    <p class="text-medium text-gray-500">Uploading</p>
+                                    <p class="font-medium text-gray-900">{{progressInfo.fileName}}</p>
+                                </div>
+
+                                <div class="text-right text-sm whitespace-nowrap text-gray-500">
+                                    <mat-icon *ngIf="progressInfo.status == SaveComponentUploadStatusesEnum.Success" class="w-2 h-2 text-green-300" svgIcon="heroicons_solid:check"></mat-icon>
+                                    <mat-icon *ngIf="progressInfo.status == SaveComponentUploadStatusesEnum.Error" class="w-2 h-2 text-red-300" svgIcon="heroicons_solid:x"></mat-icon>
+                                </div>
+                            </div>
+
+                            <mat-progress-bar *ngIf="progressInfo.status == SaveComponentUploadStatusesEnum.Uploading" mode="determinate" value="{{progressInfo.value}}"></mat-progress-bar>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </li>
+
+            <li *ngIf="savingStatus">
+                <div class="relative pb-8">
+                    <div class="relative flex space-x-3">
+                        <div>
+                            <span class="h-8 w-8 rounded-full bg-green-500 flex items-center justify-center ring-8 ring-white">
+                                <mat-icon class="w-5 h-5 text-white" svgIcon="heroicons_solid:save"></mat-icon>
+                            </span>
+                        </div>
+
+                        <div>
+                            <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                                <div>
+                                    <p class="text-medium text-gray-500">Saving data...</p>
+                                </div>
+
+                                <div class="text-right text-sm whitespace-nowrap text-gray-500">
+                                    <mat-icon *ngIf="savingStatus == SaveComponentUploadStatusesEnum.Success" class="w-2 h-2 text-green-300" svgIcon="heroicons_solid:check"></mat-icon>
+                                    <mat-icon *ngIf="savingStatus == SaveComponentUploadStatusesEnum.Error" class="w-2 h-2 text-red-300" svgIcon="heroicons_solid:x"></mat-icon>
+                                </div>
+                            </div>
+
+                            <mat-progress-bar *ngIf="savingStatus == SaveComponentUploadStatusesEnum.Uploading" mode="indeterminate"></mat-progress-bar>
+
+                        </div>
+
+                    </div>
+                </div>
+            </li>
+
+            <li *ngIf="emailBeneficiaryStatus">
+                <div class="relative pb-8">
+                    <div class="relative flex space-x-3">
+                        <div>
+                            <span class="h-8 w-8 rounded-full bg-green-500 flex items-center justify-center ring-8 ring-white">
+                                <mat-icon class="w-5 h-5 text-white" svgIcon="heroicons_solid:at-symbol"></mat-icon>
+                            </span>
+                        </div>
+
+                        <div>
+                            <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                                <div>
+                                    <p class="text-medium text-gray-500">Notifying beneficiary...</p>
+                                </div>
+
+                                <div class="text-right text-sm whitespace-nowrap text-gray-500">
+                                    <mat-icon *ngIf="emailBeneficiaryStatus == SaveComponentUploadStatusesEnum.Success" class="w-2 h-2 text-green-300" svgIcon="heroicons_solid:check"></mat-icon>
+                                    <mat-icon *ngIf="emailBeneficiaryStatus == SaveComponentUploadStatusesEnum.Error" class="w-2 h-2 text-red-300" svgIcon="heroicons_solid:x"></mat-icon>
+                                </div>
+                            </div>
+
+                            <mat-progress-bar *ngIf="emailBeneficiaryStatus == SaveComponentUploadStatusesEnum.Uploading" mode="indeterminate"></mat-progress-bar>
+
+                        </div>
+
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="mt-6 flex flex-col justify-stretch">
+        <button *ngIf="_saveComponentStatus && _saveComponentStatus == SaveComponentStatusesEnum.Success" (click)="ok()" type="button" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            Ok
+        </button>
+
+
+        <button *ngIf="_saveComponentStatus && _saveComponentStatus == SaveComponentStatusesEnum.Error" (click)="cancel()" type="button" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+            Cancel
+        </button>
+
+    </div>
+</div>
